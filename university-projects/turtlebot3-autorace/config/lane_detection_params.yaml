@@ -1,0 +1,26 @@
+# Final tuned parameters used on the physical track (from the project report).
+# HSV thresholds are also adjustable at runtime via dynamic_reconfigure.
+
+hsv:
+  white:  {hue_l: 0,  hue_h: 179, saturation_l: 0,   saturation_h: 36,  lightness_l: 200, lightness_h: 255}
+  yellow: {hue_l: 10, hue_h: 50,  saturation_l: 130, saturation_h: 255, lightness_l: 160, lightness_h: 255}
+
+detection:
+  yellow_color_limit: 10000      # px per half-image to count a yellow line as present
+  white_color_limit: 100000      # higher gate: white masks pick up walls and floor
+  stage3_straight_yellow: 25000  # px on BOTH halves = facing the end boundary
+
+geometry:
+  split_percentage: 0.5          # diagonal left/right split of the frame
+  single_lane_offset: 270        # px, ~half a lane width, used when one line is visible
+  centroid: 350                  # image row used as the steering setpoint
+  image_center_x: 500            # px, target for the lane center
+
+control:
+  kp: 0.0025
+  kd: 0.007
+  max_vel: 0.1                   # m/s on curves / single-lane segments
+  straight_speed: 0.2            # m/s when both lines are confirmed
+  speed_exponent: 2.2            # linear_x = max_vel * (1 - |e|/500)^2.2
+  angular_z_limit: 2.0           # rad/s clamp
+  final_turn: {angular_z: 1.0, duration_s: 1.5708}   # open-loop 90 degree turn

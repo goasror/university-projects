@@ -1,0 +1,9 @@
+tensorflow>=2.15
+numpy
+pillow
+scikit-learn
+scikit-image
+matplotlib
+seaborn
+lime
+python-telegram-bot>=20
